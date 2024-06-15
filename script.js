@@ -56,7 +56,11 @@ function updateAirtableInfoTable() {
             ],
             pageLength: 20,
             order: [[11, 'desc']],
-            destroy: true
+            destroy: true,
+            initComplete: function() {
+                dataTablesReady.airtable = true;
+                checkDataTablesReady();
+            }
         });
     })
     .catch(error => console.error('Error loading the data:', error));
@@ -95,10 +99,11 @@ function updateAppointmentsInfoTable() {
             ],
             pageLength: 20,
             order: [[5, 'desc']],
-            destroy: true
+            destroy: true,
+            initComplete: function() {
+                countAppointmentsAndFollowUps();
+            }
         });
-
-        countAppointmentsAndFollowUps(); // Count Appointments and Follow-ups
     })
     .catch(error => console.error('Error loading Appointments data:', error));
 }
@@ -147,16 +152,23 @@ function updateVinSoInfoTable() {
                 { title: "Sold", data: "sold" },
                 { title: "Updated", data: "updated" }
             ],
-            destroy: true
+            destroy: true,
+            initComplete: function() {
+                dataTablesReady.vinso = true;
+                checkDataTablesReady();
+            }
         });
-
-        createHighchartsChartFromTable(); // Create chart with data from DataTable
     })
     .catch(error => console.error('Error loading VinSo data:', error));
 }
 
 let appointmentsCount = 0;
 let followUpsCount = 0;
+let dataTablesReady = {
+    airtable: false,
+    vinso: false,
+    appointments: false
+};
 
 function countAppointmentsAndFollowUps() {
     const table = $('#appointments-info-table').DataTable();
@@ -168,7 +180,14 @@ function countAppointmentsAndFollowUps() {
     console.log('Appointments count:', appointmentsCount);
     console.log('Follow-ups count:', followUpsCount);
 
-    createHighchartsChartFromTable(); // Update the chart with new data
+    dataTablesReady.appointments = true;
+    checkDataTablesReady();
+}
+
+function checkDataTablesReady() {
+    if (dataTablesReady.airtable && dataTablesReady.vinso && dataTablesReady.appointments) {
+        createHighchartsChartFromTable();
+    }
 }
 
 function createHighchartsChartFromTable() {
@@ -198,7 +217,7 @@ function createHighchartsChartFromTable() {
             animation: Highcharts.svg
         },
         title: {
-            text: 'The 1st48 Performance'
+            text: 'Dealership Performance'
         },
         xAxis: {
             categories: categories,
