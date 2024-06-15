@@ -13,6 +13,8 @@ header {
     border-bottom-left-radius: 10px; /* Add rounded corners */
     border-bottom-right-radius: 10px; /* Add rounded corners */
     margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .header-container {
@@ -26,6 +28,7 @@ header {
     font-size: 2em;
     font-weight: 700;
     margin: 0;
+    line-height: 1.5; /* Adjust line height for better alignment */
 }
 
 .header-logo-container {
