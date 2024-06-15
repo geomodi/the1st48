@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #4CAF50; /* Use your existing background color */
+    background-color: #4CAF50; /* Ensure this is your desired color */
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
@@ -21,6 +21,10 @@ header {
     background-color: #4CAF50; /* Ensure the background color matches the header */
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0; /* Ensure no extra padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .site-title {
@@ -29,6 +33,7 @@ header {
     font-weight: 700;
     margin: 0;
     line-height: 1.5; /* Adjust line height for better alignment */
+    text-align: center;
 }
 
 .header-logo-container {
