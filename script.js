@@ -217,7 +217,7 @@ function createHighchartsChartFromTable() {
             animation: Highcharts.svg
         },
         title: {
-            text: 'Dealership Performance'
+            text: 'The 1st48 Performance'
         },
         xAxis: {
             categories: categories,
