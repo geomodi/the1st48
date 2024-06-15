@@ -217,7 +217,7 @@ function createHighchartsChartFromTable() {
             animation: Highcharts.svg
         },
         title: {
-            text: 'The 1st48 Performance'
+            text: 'Dealership Performance'
         },
         xAxis: {
             categories: categories,
@@ -278,6 +278,28 @@ function createHighchartsChartFromTable() {
     });
 }
 
+function downloadXLSXReport() {
+    const workbook = XLSX.utils.book_new();
+
+    // Adding Unified Desklogs
+    const airtableData = $('#airtable-info-table').DataTable().rows().data().toArray();
+    const airtableSheet = XLSX.utils.json_to_sheet(airtableData);
+    XLSX.utils.book_append_sheet(workbook, airtableSheet, "Unified Desklogs");
+
+    // Adding Appointments
+    const appointmentsData = $('#appointments-info-table').DataTable().rows().data().toArray();
+    const appointmentsSheet = XLSX.utils.json_to_sheet(appointmentsData);
+    XLSX.utils.book_append_sheet(workbook, appointmentsSheet, "Appointments");
+
+    // Adding VinSo Desklog
+    const vinsoData = $('#vinso-info-table').DataTable().rows().data().toArray();
+    const vinsoSheet = XLSX.utils.json_to_sheet(vinsoData);
+    XLSX.utils.book_append_sheet(workbook, vinsoSheet, "VinSo Desklog");
+
+    // Writing the workbook
+    XLSX.writeFile(workbook, 'Desklog_Report.xlsx');
+}
+
 window.addEventListener('load', () => {
     updateAirtableInfoTable();
     updateAppointmentsInfoTable();
@@ -285,8 +307,5 @@ window.addEventListener('load', () => {
 });
 
 document.getElementById('download-xlsx').addEventListener('click', function() {
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.table_to_sheet(document.getElementById('vinso-info-table'));
-    XLSX.utils.book_append_sheet(workbook, worksheet, "TableData");
-    XLSX.writeFile(workbook, 'table.xlsx');
+    downloadXLSXReport();
 });
