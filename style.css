@@ -16,6 +16,7 @@ header {
 }
 
 .header-container {
+    background-color: #4CAF50; /* Ensure the background color matches the header */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -25,10 +26,6 @@ header {
     font-size: 2em;
     font-weight: 700;
     margin: 0;
-}
-
-.title span {
-    display: block;
 }
 
 .header-logo-container {
